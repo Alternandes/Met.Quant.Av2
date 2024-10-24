@@ -1,0 +1,233 @@
+# Estudo de caso 1.a)
+
+plot(x, y,
+     main = "Gráfico de Dispersão",
+     xlab = "Eixo X",
+     ylab = "Eixo Y",
+     col = "blue")
+
+
+#1.b)
+
+cor(x,y)
+
+
+
+#1.c)
+
+regressao = lm(y~x)
+plot(x, y,
+     main = "Gráfico de Dispersão com Reta de Regressão",
+     xlab = "Eixo X",
+     ylab = "Eixo Y",
+     col = "blue")
+abline(regressao,col = "red" , lwd = 2)
+
+
+#1.d)
+dados <- data.frame(
+  x = c(3.42, 3.52 ,3.57, 3.61, 3.43, 3.59, 3.62, 3.56, 3.35, 3.47 , 3.53, 3.33, 3.54, 3.22, 3.49, 3.25, 3.79, 3.64, 3.67, 3.72),  # X
+  y = c(8.20, 7.10, 7.30, 8.60, 6.80, 7.60, 8.50, 6.90, 5.40, 6.20 , 7.90, 5.80, 9.10, 4.50, 6.30, 5.20, 9.50, 8.90, 7.40, 8.70 )  # Y
+)
+
+#  rm (dados) apagar
+
+lm (formula = y ~ x, data = dados)
+
+
+
+
+# 1.e)
+
+Yest = -20.897 + 8.018*107
+Yest
+
+
+
+
+#Estudo de caso 2)
+
+x <- c(658, 660, 600, 270, 297, 396 ,738, 744, 798, 252, 353, 390, 660,660,894,204,252,270,517,750,792,234,700,832,870, 894,983,334,288,288,921,794,866,220,726,993)
+y <- c(34.500,29.800,26.100, 18.100,17.400,21.300,31.600,38.800,33.940,15.500,15.500,33.800,19.500,28.300,36.820,16.120,19.700,19.600,27.640,30.500,32.800,17.020,32.400, 37.000, 36.100,39.900,35.500,21.100,18.640,18.640,37.270,27.000,37.3600,17.600,33.700,30.600)
+
+#a
+plot(x, y, main="Diagrama de Dispersão", xlab="Variável X", ylab="Variável Y", pch=19)
+
+
+#b
+cor(x,y)
+
+#c
+
+regressão=lm(y~x)
+
+regressão
+
+#d
+Cdet <- summary(regressao)
+
+
+Cdet
+
+
+#e
+
+#Medidas de posição
+# Cálculo da média
+media_x <- mean(dados$x)
+media_y <- mean(dados$y)
+
+# Cálculo da mediana
+mediana_x <- median(dados$x)
+mediana_y <- median(dados$y)
+
+# Cálculo da moda
+# Função personalizada para calcular a moda
+moda <- function(v) {
+  unique_v <- unique(v)
+  unique_v[which.max(tabulate(match(v, unique_v)))]
+}
+
+moda_x <- moda(dados$x)
+moda_y <- moda(dados$y)
+
+# Exibir os resultados
+cat("Medidas de Posição para x:\n")
+cat("Média:", media_x, "\n")
+cat("Mediana:", mediana_x, "\n")
+cat("Moda:", moda_x, "\n\n")
+
+cat("Medidas de Posição para y:\n")
+cat("Média:", media_y, "\n")
+cat("Mediana:", mediana_y, "\n")
+cat("Moda:", moda_y, "\n")
+
+#Medidas de dispersão
+# Cálculo das medidas de dispersão para x
+desvio_padrao_x <- sd(dados$x)
+variancia_x <- var(dados$x)
+iqr_x <- IQR(dados$x)
+
+# Cálculo das medidas de dispersão para y
+desvio_padrao_y <- sd(dados$y)
+variancia_y <- var(dados$y)
+iqr_y <- IQR(dados$y)
+
+# Exibir os resultados
+cat("Medidas de Dispersão para x:\n")
+cat("Desvio Padrão:", desvio_padrao_x, "\n")
+cat("Variância:", variancia_x, "\n")
+cat("Intervalo Interquartil (IQR):", iqr_x, "\n\n")
+
+cat("Medidas de Dispersão para y:\n")
+cat("Desvio Padrão:", desvio_padrao_y, "\n")
+cat("Variância:", variancia_y, "\n")
+cat("Intervalo Interquartil (IQR):", iqr_y, "\n")
+
+#f
+#Diagrama BoxPlot
+boxplot(y,
+        main = "Box Plot de Valores",
+        ylab = "Valores",
+        col = "green",
+        border = "black")
+
+
+
+
+
+#4
+
+dados <- data.frame(
+  idade = c(18, 20 ,25, 23, 19, 55, 33, 31, 21, 56 , 58, 60, 71, 44, 32, 77, 61, 75, 80, 17),  # X
+   peso = c(82, 71, 73, 86, 68, 76, 85, 69, 54, 62 , 79, 58, 91, 45, 63, 95, 105, 99, 67, 130 )  # Y
+)
+
+
+
+#a
+plot(dados$idade, dados$peso,
+     main = "Diagrama de Dispersão: Idade vs Peso",
+     xlab = "Idade",
+     ylab = "Peso",
+     pch = 19, col = "blue")
+
+
+#b
+modelo <- lm(idade ~ peso, data = dados)
+modelo
+
+summary(modelo)
+
+
+abline(modelo, col = "red", lwd = 2)
+
+
+#EQUAÇÃO SERIA:
+ # IDADE = 36.26496 + 0.09673 * PESO
+
+#c
+summary(modelo)$r.squared
+
+#d
+
+cor(dados$idade, dados$peso)
+
+
+#e
+
+# Medidas de posição para Idade
+media_idade <- mean(dados$idade)
+mediana_idade <- median(dados$idade)
+
+# Medidas de posição para Peso
+media_peso <- mean(dados$peso)
+mediana_peso <- median(dados$peso)
+
+# Resultado
+cat("Idade:\n")
+cat("Média:", media_idade, "\n")
+cat("Mediana:", mediana_idade, "\n\n")
+
+cat("Peso:\n")
+cat("Média:", media_peso, "\n")
+cat("Mediana:", mediana_peso, "\n")
+
+
+
+###############
+
+# Medidas de dispersão para Idade
+variancia_idade <- var(dados$idade)
+desvio_padrao_idade <- sd(dados$idade)
+intervalo_idade <- range(dados$idade)
+
+# Medidas de dispersão para Peso
+variancia_peso <- var(dados$peso)
+desvio_padrao_peso <- sd(dados$peso)
+intervalo_peso <- range(dados$peso)
+
+# Quartis para Peso
+quartis_peso <- quantile(dados$peso)
+
+# Resultado
+cat("\nDispersão Idade:\n")
+cat("Variância:", variancia_idade, "\n")
+cat("Desvio Padrão:", desvio_padrao_idade, "\n")
+cat("Intervalo:", intervalo_idade, "\n\n")
+
+cat("Dispersão Peso:\n")
+cat("Variância:", variancia_peso, "\n")
+cat("Desvio Padrão:", desvio_padrao_peso, "\n")
+cat("Intervalo:", intervalo_peso, "\n")
+cat("Quartis:", quartis_peso, "\n")
+
+
+#f
+#BoxPlot
+
+boxplot(peso ~ idade, data = dados,
+        main = "Box Plot de Peso por Idade",
+        xlab = "Idade (anos)",
+        ylab = "Peso (kg)",
+        col = c("red", "lightgreen"))
